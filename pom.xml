@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arquivo principal de configuração do Maven.
+     Aqui definimos dependências, versão do Java, plugins e configurações do projeto. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Versão do modelo do POM usada pelo Maven -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Projeto pai do Spring Boot.
+         Ele já traz várias configurações prontas e dependências padrão. -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.11-SNAPSHOT</version>
+        <relativePath/> <!-- Procura o parent no repositório -->
+    </parent>
+
+    <!-- Identificação do seu projeto -->
+    <groupId>br.com</groupId>        <!-- Organização ou domínio -->
+    <artifactId>automacao</artifactId> <!-- Nome do projeto -->
+    <version>0.0.1-SNAPSHOT</version> <!-- Versão atual -->
+    <name>automacao</name>           <!-- Nome amigável -->
+    <description>Projeto de automação com Selenium</description>
+
+    <!-- Propriedades globais do projeto -->
+    <properties>
+        <!-- Define a versão do Java usada no projeto -->
+        <java.version>21</java.version>
+    </properties>
+
+    <!-- Dependências do projeto -->
+    <dependencies>
+
+        <!-- Spring Boot para criar aplicações web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Dependências para testes (JUnit, Mockito, etc.) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Selenium WebDriver:
+             Biblioteca principal para automação de navegadores -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.15.0</version>
+        </dependency>
+
+        <!-- WebDriverManager:
+             Gerencia automaticamente o download do driver do navegador -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.6.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <!-- Configuração de build do Maven -->
+    <build>
+        <plugins>
+
+            <!-- Plugin do Spring Boot
+                 Permite rodar a aplicação com mvn spring-boot:run -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- Repositório de snapshots do Spring (versões em teste) -->
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <!-- Repositório de plugins em versão snapshot -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
