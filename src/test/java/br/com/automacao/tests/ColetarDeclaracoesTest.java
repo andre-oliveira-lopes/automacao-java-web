@@ -15,20 +15,27 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.io.FileNotFoundException;
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class ColetarDeclaracoesTest {
 
     @Test
     @DisplayName("Abrir página de declarações do Bolsonaro")
     public void abrirPaginaDeclaracoes() {
 
-        // Força o encoding UTF-8
-        System.setProperty("file.encoding", "UTF-8");
-
         // Configura automaticamente o driver do Chrome
         WebDriverManager.chromedriver().setup();
 
         // Abre o navegador
         WebDriver navegador = new ChromeDriver();
+
+        // Coloque o código de automação dentro de um bloco try-finally para garantir que o navegador seja fechado mesmo se ocorrer um erro
+        try {
 
         // Acessa a página das declarações
         navegador.get("https://api.aosfatos.org/todas-as-declaracoes-de-bolsonaro/");
@@ -46,35 +53,77 @@ public class ColetarDeclaracoesTest {
         // Pega todas as declarações
         List<WebElement> declaracoes = navegador.findElements(By.cssSelector("div.fact"));
 
-        // Exibir no console a quantidade de declarações coletadas
-        System.out.println("\n||||||||||||||||||||||||||||||||||||||||");
-        System.out.println("Total de declaracoes: " + declaracoes.size());
-        System.out.println("\n");
+        // Cria um arquivo CSV para salvar os dados coletados
+        try (PrintWriter writer = new PrintWriter(
+            new OutputStreamWriter(
+                new FileOutputStream("declaracoes.csv"),
+                StandardCharsets.UTF_8
+            )
+        )) {
 
-        // for-each: usado para percorrer uma lista. Para cada declaração dentro da lista "List<WebElement>" de declarações, execute o código abaixo.
-        for (WebElement declaracao : declaracoes) {
+            // Escreve o cabeçalho do CSV
+            writer.println("id,data,link,frase");
 
-            // ================= ID =================
-            // Aqui estamos pegando o valor do atributo "id"
-            String id = declaracao.getDomAttribute("id");
+            // Exibir no console a quantidade de declarações coletadas
+            System.out.println("\n||||||||||||||||||||||||||||||||||||||||");
+            System.out.println("Total de declaracoes: " + declaracoes.size());
+            System.out.println("\n");
 
-            // ================= DATA =================
-            // Nem toda declaração tem a data no mesmo lugar, então começamos com a data vazia
-            String data = "";
+            // for-each: usado para percorrer uma lista. Para cada declaração dentro da lista "List<WebElement>" de declarações, execute o código abaixo.
+            for (WebElement declaracao : declaracoes) {
 
-            // Tentamos pegar a data
-            try {
-                // Procuramos o elemento que contém a data usando o seletor CSS "p.w600, pega ele e joga em data"
-                data = declaracao.findElement(By.cssSelector("p.w600")).getText();
-            } catch (Exception ignored) {} // Se não encontrar, ignora o erro e continua a execução
+                // ================= ID =================
+                // Aqui estamos pegando o valor do atributo "id"
+                String id = declaracao.getDomAttribute("id");
 
-            // Exibir no console
-            System.out.println("ID: " + id);
-            System.out.println("Data: " + data);
-            System.out.println("----------------------");
+                // ================= DATA =================
+                // Nem toda declaração tem a data no mesmo lugar, então começamos com a data vazia
+                String data = "";
+
+                // Tentamos pegar a data
+                try {
+                    // Procuramos o elemento que contém a data usando o seletor CSS "p.w600, pega ele e joga em data"
+                    data = declaracao.findElement(By.cssSelector("p.w600")).getText();
+                } catch (Exception ignored) {} // Se não encontrar, ignora o erro e continua a execução
+
+                // ================= LINK DA DECLARAÇÃO =================
+                String linkDeclaracao = "";
+                try {
+                    linkDeclaracao = declaracao
+                            .findElement(By.cssSelector("a.microlink"))
+                            .getDomAttribute("href");
+                } catch (Exception ignored) {}
+
+
+                // ================= FRASE PRINCIPAL =================
+                String frasePrincipal = "";
+                try {
+                    frasePrincipal = declaracao
+                            .findElement(By.cssSelector("h4"))
+                            .getText();
+                } catch (Exception ignored) {}
+
+                // Salva os dados no arquivo CSV, separando por vírgula
+                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\"", id, data, linkDeclaracao, frasePrincipal));
+                
+                // Exibir no console
+                System.out.println("ID: " + id);
+                System.out.println("Data: " + data);
+                System.out.println("Link: " + linkDeclaracao);
+                System.out.println("Frase: " + frasePrincipal);
+                System.out.println("----------------------");
+            }
+        } catch (FileNotFoundException e) {
+            fail("Não foi possível criar o arquivo: " + e.getMessage());
         }
+        
+        // Exibir mensagem de sucesso no console
+        System.out.println("Dados coletados e salvos com sucesso!");
 
-        // Fecha o navegador
-        navegador.quit();
+        // Ao finalizar as ações, o navegador será fechado no bloco finally
+        } finally {
+            // Fecha o navegador
+            navegador.quit();
+        }
     }
 }
