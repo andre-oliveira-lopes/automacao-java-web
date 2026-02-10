@@ -29,6 +29,8 @@
     <properties>
         <!-- Define a versão do Java usada no projeto -->
         <java.version>21</java.version>
+        <!-- encoding UTF-8 padronizado no projeto -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <!-- Dependências do projeto -->
