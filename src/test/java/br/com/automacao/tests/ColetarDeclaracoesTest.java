@@ -62,7 +62,7 @@ public class ColetarDeclaracoesTest {
         )) {
 
             // Escreve o cabeçalho do CSV
-            writer.println("id,data,link,frase");
+            writer.println("id,data,link,frase,texto,leia_mais,fonte,origem");
 
             // Exibir no console a quantidade de declarações coletadas
             System.out.println("\n||||||||||||||||||||||||||||||||||||||||");
@@ -103,14 +103,57 @@ public class ColetarDeclaracoesTest {
                             .getText();
                 } catch (Exception ignored) {}
 
+                // ================= TEXTO EXPLICATIVO =================
+                String textoExplicativo = "";
+                try {
+                    textoExplicativo = declaracao
+                            .findElement(By.cssSelector("p.neuton"))
+                            .getText();
+                } catch (Exception ignored) {}
+
+                // ================= LINKS (LEIA MAIS, FONTE, ORIGEM) =================
+                String linkLeiaMais = "";
+                String linkFonte = "";
+                String linkOrigem = "";
+
+                try {
+                    List<WebElement> links = declaracao.findElements(By.cssSelector("a.btn"));
+
+                    for (WebElement link : links) {
+                        String textoLink = link.getText().toUpperCase();
+                        String href = link.getDomAttribute("href");
+
+                        if (textoLink.contains("LEIA MAIS")) {
+                            linkLeiaMais = href;
+                        } else if (textoLink.contains("FONTE")) {
+                            linkFonte = href;
+                        } else if (textoLink.contains("ORIGEM")) {
+                            linkOrigem = href;
+                        }
+                    }
+                } catch (Exception ignored) {}
+
+
                 // Salva os dados no arquivo CSV, separando por vírgula
-                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\"", id, data, linkDeclaracao, frasePrincipal));
+                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+                        id,
+                        data,
+                        linkDeclaracao,
+                        frasePrincipal,
+                        textoExplicativo,
+                        linkLeiaMais,
+                        linkFonte,
+                        linkOrigem));
                 
                 // Exibir no console
                 System.out.println("ID: " + id);
                 System.out.println("Data: " + data);
                 System.out.println("Link: " + linkDeclaracao);
                 System.out.println("Frase: " + frasePrincipal);
+                System.out.println("Texto: " + textoExplicativo);
+                System.out.println("Leia Mais: " + linkLeiaMais);
+                System.out.println("Fonte: " + linkFonte);
+                System.out.println("Origem: " + linkOrigem);
                 System.out.println("----------------------");
             }
         } catch (FileNotFoundException e) {
