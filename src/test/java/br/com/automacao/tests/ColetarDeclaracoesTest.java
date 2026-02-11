@@ -76,7 +76,7 @@ public class ColetarDeclaracoesTest {
         )) {
 
             // Escreve o cabeçalho do CSV
-            writer.println("id,data,link,frase,texto,leia_mais,fonte,origem,qtd_repeticoes,datas_repeticoes");
+            writer.println("id,data,link,frase,texto,leia_mais,fonte,origem,qtd_repeticoes,datas_repeticoes,tema,tipo_origem");
 
 
             // Exibir no console a quantidade de declarações coletadas
@@ -183,6 +183,34 @@ public class ColetarDeclaracoesTest {
 
                 } catch (Exception ignored) {}
 
+                /* NOTA: O CSS não tem um jeito simples de pegar os 2 span que 
+                contém o texto interno "Tema" e "Origem". O XPath permite 
+                buscar pelo conteúdo textual exato, seja ele "Tema" ou "Origem". 
+                o CSS é mais rápido e simples. XPath é mais poderoso e flexível. 
+                */
+                // ================= TEMA =================
+                String tema = "";
+
+                try {
+                    tema = declaracao
+                            .findElement(By.xpath(".//p[contains(@class,'metatags')]//span[contains(text(),'Tema:')]"))
+                            .getText()
+                            .replace("Tema:", "")
+                            .replace(".", "")
+                            .trim();
+                } catch (Exception ignored) {}
+
+                // ================= TIPO DE ORIGEM =================
+                String tipoOrigem = "";
+
+                try {
+                    tipoOrigem = declaracao
+                            .findElement(By.xpath(".//p[contains(@class,'metatags')]//span[contains(text(),'Origem:')]"))
+                            .getText()
+                            .replace("Origem:", "")
+                            .trim();
+                } catch (Exception ignored) {}
+
                 // Limpa os dados antes de salvar
                 id = limparParaCSV(id);
                 data = limparParaCSV(data);
@@ -194,10 +222,12 @@ public class ColetarDeclaracoesTest {
                 linkOrigem = limparParaCSV(linkOrigem);
                 qtdRepeticoes = limparParaCSV(qtdRepeticoes);
                 datasRepeticoes = limparParaCSV(datasRepeticoes);
+                tema = limparParaCSV(tema);
+                tipoOrigem = limparParaCSV(tipoOrigem);
 
 
                 // Salva os dados no arquivo CSV, separando por vírgula
-                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
                         id,
                         data,
                         linkDeclaracao,
@@ -207,9 +237,12 @@ public class ColetarDeclaracoesTest {
                         linkFonte,
                         linkOrigem,
                         qtdRepeticoes,
-                        datasRepeticoes));
-                
+                        datasRepeticoes,
+                        tema,
+                        tipoOrigem));
+
                 // Exibir no console
+                /* 
                 System.out.println("ID: " + id);
                 System.out.println("Data: " + data);
                 System.out.println("Link: " + linkDeclaracao);
@@ -220,7 +253,10 @@ public class ColetarDeclaracoesTest {
                 System.out.println("Origem: " + linkOrigem);
                 System.out.println("Repetições: " + qtdRepeticoes);
                 System.out.println("Datas das repetições: " + datasRepeticoes);
+                System.out.println("Tema: " + tema);
+                System.out.println("Tipo de origem: " + tipoOrigem);
                 System.out.println("----------------------");
+                */
             }
         } catch (FileNotFoundException e) {
             fail("Não foi possível criar o arquivo: " + e.getMessage());
