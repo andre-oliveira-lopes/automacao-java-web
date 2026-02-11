@@ -24,6 +24,20 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ColetarDeclaracoesTest {
 
+    // Método para limpar texto antes de salvar no CSV
+    private String limparParaCSV(String texto) {
+        if (texto == null) return "";
+
+        // remove quebras de linha
+        texto = texto.replace("\n", " ")
+                    .replace("\r", " ");
+
+        // escapa aspas internas
+        texto = texto.replace("\"", "\"\"");
+
+        return texto;
+    }
+
     @Test
     @DisplayName("Abrir página de declarações do Bolsonaro")
     public void abrirPaginaDeclaracoes() {
@@ -62,7 +76,8 @@ public class ColetarDeclaracoesTest {
         )) {
 
             // Escreve o cabeçalho do CSV
-            writer.println("id,data,link,frase,texto,leia_mais,fonte,origem");
+            writer.println("id,data,link,frase,texto,leia_mais,fonte,origem,qtd_repeticoes,datas_repeticoes");
+
 
             // Exibir no console a quantidade de declarações coletadas
             System.out.println("\n||||||||||||||||||||||||||||||||||||||||");
@@ -133,9 +148,56 @@ public class ColetarDeclaracoesTest {
                     }
                 } catch (Exception ignored) {}
 
+                // ================= QUANTIDADE DE REPETIÇÕES =================
+                String qtdRepeticoes = "";
+
+                try {
+                    qtdRepeticoes = declaracao
+                            .findElement(By.cssSelector("span.repetitions"))
+                            .getText();
+                } catch (Exception ignored) {}
+
+                // ================= DATAS DAS REPETIÇÕES =================
+                String datasRepeticoes = "";
+
+                try {
+                    WebElement dateList = declaracao.findElement(By.cssSelector("div.date-list"));
+
+                    List<WebElement> anos = dateList.findElements(By.cssSelector("span.year"));
+                    List<WebElement> dias = dateList.findElements(By.cssSelector("span.days"));
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for (int i = 0; i < anos.size(); i++) {
+                        String ano = anos.get(i).getText().replace("Em ", "").replace(":", "").trim();
+                        String diasTexto = dias.get(i).getText().trim();
+
+                        if (builder.length() > 0) {
+                            builder.append(" | ");
+                        }
+
+                        builder.append(ano).append(": ").append(diasTexto);
+                    }
+
+                    datasRepeticoes = builder.toString();
+
+                } catch (Exception ignored) {}
+
+                // Limpa os dados antes de salvar
+                id = limparParaCSV(id);
+                data = limparParaCSV(data);
+                linkDeclaracao = limparParaCSV(linkDeclaracao);
+                frasePrincipal = limparParaCSV(frasePrincipal);
+                textoExplicativo = limparParaCSV(textoExplicativo);
+                linkLeiaMais = limparParaCSV(linkLeiaMais);
+                linkFonte = limparParaCSV(linkFonte);
+                linkOrigem = limparParaCSV(linkOrigem);
+                qtdRepeticoes = limparParaCSV(qtdRepeticoes);
+                datasRepeticoes = limparParaCSV(datasRepeticoes);
+
 
                 // Salva os dados no arquivo CSV, separando por vírgula
-                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+                writer.println(String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
                         id,
                         data,
                         linkDeclaracao,
@@ -143,7 +205,9 @@ public class ColetarDeclaracoesTest {
                         textoExplicativo,
                         linkLeiaMais,
                         linkFonte,
-                        linkOrigem));
+                        linkOrigem,
+                        qtdRepeticoes,
+                        datasRepeticoes));
                 
                 // Exibir no console
                 System.out.println("ID: " + id);
@@ -154,6 +218,8 @@ public class ColetarDeclaracoesTest {
                 System.out.println("Leia Mais: " + linkLeiaMais);
                 System.out.println("Fonte: " + linkFonte);
                 System.out.println("Origem: " + linkOrigem);
+                System.out.println("Repetições: " + qtdRepeticoes);
+                System.out.println("Datas das repetições: " + datasRepeticoes);
                 System.out.println("----------------------");
             }
         } catch (FileNotFoundException e) {
