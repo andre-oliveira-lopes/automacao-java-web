@@ -12,8 +12,8 @@ Automatizar a navegação no site Aos Fatos para:
 ## Dados coletados
 Para cada declaração, o robô:
 
-1 - Encontrar todos os elementos com classe fact.
-2 - Para cada um: 
+1. Encontrar todos os elementos com classe fact.
+2. Para cada um: 
 
 	| Nº | Campo                    | Pode extrair?  |
 	| -- | ------------------------ | -------------- |
@@ -30,7 +30,7 @@ Para cada declaração, o robô:
 	| 11 | tema                     | ✅             |
 	| 12 | tipo de origem           | ✅             |
 
-3 - Se algum campo não existir, o robô continua a execução e deixa o campo vazio no CSV.
+3. Se algum campo não existir, o robô continua a execução e deixa o campo vazio no CSV.
 
 ## Funcionamento do robô
 Fluxo geral da automação
