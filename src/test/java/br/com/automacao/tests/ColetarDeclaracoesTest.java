@@ -114,6 +114,15 @@ public class ColetarDeclaracoesTest {
                     // lista "List<WebElement>" de declarações, execute o código abaixo.
                     for (WebElement declaracao : declaracoes) {
 
+                        // Ignora as declarações do bloco "mais repetidas"
+                        boolean ehRepetida = !declaracao
+                                .findElements(By.xpath("ancestor::div[contains(@class,'most-repeated-items')]"))
+                                .isEmpty();
+                        // Se for das mais repetidas, ignora e continua para a próxima declaração
+                        if (ehRepetida) {
+                            continue;
+                        }
+
                         // ================= ID =================
                         // Aqui estamos pegando o valor do atributo "id"
                         String id = declaracao.getDomAttribute("id");
