@@ -117,10 +117,8 @@ public class ColetarDeclaracoesTest {
                     // Pega todas as declarações
                     List<WebElement> declaracoes = navegador.findElements(By.cssSelector("div.fact"));
 
-                    // Exibir no console a quantidade de declarações coletadas
-                    System.out.println("Total de declaracoes: " + declaracoes.size());
-
-                    totalGeral += declaracoes.size();
+                    //
+                    int declaracoesValidas = 0;
 
                     // for-each: usado para percorrer uma lista. Para cada declaração dentro da
                     // lista "List<WebElement>" de declarações, execute o código abaixo.
@@ -134,6 +132,9 @@ public class ColetarDeclaracoesTest {
                         if (ehRepetida) {
                             continue;
                         }
+
+                        // Conta apenas as declarações válidas
+                        declaracoesValidas++;
 
                         // ================= ID =================
                         // Aqui estamos pegando o valor do atributo "id"
@@ -319,6 +320,12 @@ public class ColetarDeclaracoesTest {
                          * System.out.println("----------------------");
                          */
                     }
+                    // ================= TOTAL DA PÁGINA =================
+                    // Mostra o total correto da página
+                    System.out.println("Total de declaracoes: " + declaracoesValidas);
+
+                    // Soma no total geral
+                    totalGeral += declaracoesValidas;
 
                 }
                 // Dá um tempo para o console exibir a última página coletada antes de mostrar o
