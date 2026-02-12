@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ColetarDeclaracoesTest {
 
     // Total de páginas a serem coletadas 446.
-    private static final int TOTAL_PAGINAS = 4;
+    private static final int TOTAL_PAGINAS = 5;
 
     // Método para limpar texto antes de salvar no CSV
     private String limparParaCSV(String texto) {
