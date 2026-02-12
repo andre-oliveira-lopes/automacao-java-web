@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class ColetarDeclaracoesTest {
 
     // Total de páginas a serem coletadas 446.
-    private static final int TOTAL_PAGINAS = 5;
+    private static final int TOTAL_PAGINAS = 4;
 
     // Método para limpar texto antes de salvar no CSV
     private String limparParaCSV(String texto) {
@@ -100,6 +100,7 @@ public class ColetarDeclaracoesTest {
                     navegador.get(url);
 
                     // Print para saber em qual página está
+                    System.out.println("\n");
                     System.out.println(">>> Coletando pagina: " + pagina);
 
                     // ================= ETAPA 1 =================
@@ -117,9 +118,7 @@ public class ColetarDeclaracoesTest {
                     List<WebElement> declaracoes = navegador.findElements(By.cssSelector("div.fact"));
 
                     // Exibir no console a quantidade de declarações coletadas
-                    System.out.println("\n||||||||||||||||||||||||||||||||||||||||");
                     System.out.println("Total de declaracoes: " + declaracoes.size());
-                    System.out.println("\n");
 
                     totalGeral += declaracoes.size();
 
@@ -326,6 +325,7 @@ public class ColetarDeclaracoesTest {
                 // total geral
                 Thread.sleep(1000);
                 // Exibir o total geral de declarações coletadas
+                System.out.println("\n");
                 System.out.println("TOTAL GERAL: " + totalGeral);
 
             } catch (FileNotFoundException e) {
@@ -334,6 +334,7 @@ public class ColetarDeclaracoesTest {
 
             // Exibir mensagem de sucesso no console
             System.out.println("Dados coletados e salvos com sucesso!");
+            System.out.println("\n");
 
             // Ao finalizar as ações, o navegador será fechado no bloco finally
         } finally {
