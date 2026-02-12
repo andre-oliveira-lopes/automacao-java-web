@@ -45,7 +45,7 @@ public class ColetarDeclaracoesTest {
 
     // Teste para abrir a página de declarações do Bolsonaro e coletar os dados
     @Test
-    @DisplayName("Abrir página de declarações do Bolsonaro")
+    @DisplayName("Abrir pagina de declarações do Bolsonaro")
     public void abrirPaginaDeclaracoes() throws InterruptedException {
 
         // Configura automaticamente o driver do Chrome
@@ -87,7 +87,7 @@ public class ColetarDeclaracoesTest {
                     navegador.get(url);
 
                     // Print para saber em qual página está
-                    System.out.println(">>> Coletando página: " + pagina);
+                    System.out.println(">>> Coletando pagina: " + pagina);
 
                     // ================= ETAPA 1 =================
                     // Espera inteligente até aparecer pelo menos uma declaração na página
@@ -316,7 +316,7 @@ public class ColetarDeclaracoesTest {
                 System.out.println("TOTAL GERAL: " + totalGeral);
 
             } catch (FileNotFoundException e) {
-                fail("Não foi possível criar o arquivo: " + e.getMessage());
+                fail("Não foi possivel criar o arquivo: " + e.getMessage());
             }
 
             // Exibir mensagem de sucesso no console
