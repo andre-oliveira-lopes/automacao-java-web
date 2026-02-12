@@ -1,5 +1,8 @@
 package br.com.automacao.tests;
-
+/*
+Executa o robô: O arquivo ColetarDeclaracoesTest.java é onde está o código de automação que 
+coleta os dados das declarações. Ele é um teste JUnit, mas na verdade é o nosso robô de coleta.
+*/
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
