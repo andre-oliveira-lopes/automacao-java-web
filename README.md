@@ -10,7 +10,7 @@ Automatizar a navegação no site Aos Fatos para:
 3. Exportar os resultados para arquivos CSV
 
 ## Dados coletados
-Para cada declaração, o robô extrai:
+Para cada declaração, o robô:
 
 1 - Encontrar todos os elementos com classe fact.
 2 - Para cada um: 
@@ -44,7 +44,7 @@ Fluxo geral da automação
 
 ## Estrutura das classes
 Classe principal: AutomacaoApplication
-Responsável por:
+- Responsável por:
 
 1. Controlar o navegador
 2. Navegar pelas páginas
@@ -52,15 +52,15 @@ Responsável por:
 4. Salvar no CSV
 
 Classe utilitária: ElementUtil
-Essa classe serve para facilitar a busca de elementos na página.
+- Essa classe serve para facilitar a busca de elementos na página.
 
 1. Espera o elemento aparecer.
 2. Identifica o tipo de seletor:
-    XPath
-    CSS
-    ID
-    Name
-    LinkText
+    - XPath
+    - CSS
+    - ID
+    - Name
+    - LinkText
 3. Retorna o elemento já pronto para uso.
 
 ## Tecnologias utilizadas
@@ -80,10 +80,10 @@ Essa classe serve para facilitar a busca de elementos na página.
 | WebDriverManager | Baixa o driver do navegador | O instalador automático          |
 
 ## Dependências principais (pom.xml)
-spring-boot-starter
-spring-boot-starter-test
-selenium-java
-webdrivermanager
+- spring-boot-starter
+- spring-boot-starter-test
+- selenium-java
+- webdrivermanager
 
 ## Como executar
 1. Clonar o repositório: git clone <url-do-repositorio>
@@ -132,7 +132,7 @@ Fechar navegador
   ↓
 FIM
 
-## explicação da estrutura do projeto
+## Explicação da estrutura do projeto
 Atualmente, é normal e correto que o código do robô esteja localizado na pasta src/test do projeto. Isso acontece porque o robô está sendo executado como um teste automatizado, utilizando Java com Selenium dentro da estrutura padrão de projetos que seguem o modelo de testes (como JUnit ou TestNG).
 Em projetos Java organizados dessa forma, o diretório src é dividido em duas partes principais: src/main, que contém o código principal da aplicação, e src/test, que é destinado aos códigos de teste, automações e validações. Como o robô está sendo executado como um teste, ele se encaixa naturalmente dentro da pasta src/test/java.
 Essa organização é comum no mercado, principalmente para:
