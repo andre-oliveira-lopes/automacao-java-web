@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.io.FileNotFoundException;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -58,12 +59,24 @@ public class ColetarDeclaracoesTest {
         // que o navegador seja fechado mesmo se ocorrer um erro
         try {
 
-            // Cria um arquivo CSV para salvar os dados coletados
+            // Nome da pasta onde os CSVs serão salvos
+            String pasta = "Dados_CSV";
+
+            // Cria a pasta se ela não existir
+            File diretorio = new File(pasta);
+            if (!diretorio.exists()) {
+                diretorio.mkdirs();
+            }
+
+            // Nome do arquivo com data e hora
+            String nomeArquivo = pasta + "/declaracoes_"
+                    + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
+                    + ".csv";
+
+            // Cria o arquivo CSV para salvar os dados coletados
             try (PrintWriter writer = new PrintWriter(
                     new OutputStreamWriter(
-                            new FileOutputStream("declaracoes_"
-                                    + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"))
-                                    + ".csv"),
+                            new FileOutputStream(nomeArquivo),
                             StandardCharsets.UTF_8))) {
 
                 // Escreve o cabeçalho do CSV
