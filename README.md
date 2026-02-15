@@ -86,7 +86,7 @@ Classe utilitária: ElementUtil
 - webdrivermanager
 
 ## Como executar
-1. Clonar o repositório: git clone <url-do-repositorio>
+1. Clonar o repositório: ``` git clone <url-do-repositorio> ```
 2. Entre na pasta do projeto: cd AutomacaoJavaWeb
 3. Executar a classe de testes no terminal: "mvn test" 
 
