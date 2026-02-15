@@ -91,6 +91,7 @@ Classe utilitária: ElementUtil
 3. Executar a classe de testes no terminal: "mvn test" 
 
 ## Estrutura do projeto
+```
 src
  ├── main
  │   └── java
@@ -98,9 +99,11 @@ src
      └── java
          ├── AutomacaoApplication.java
          └── ElementUtil.java
+```
 
-## Estrutura de execução do projeto
+## Estrutura de execução do projeto (robô de coleta)
 
+```
 INÍCIO
   ↓
 Abrir navegador
@@ -131,14 +134,16 @@ Salvar CSV
 Fechar navegador
   ↓
 FIM
+```
 
 ## Explicação da estrutura do projeto
 Atualmente, é normal e correto que o código do robô esteja localizado na pasta src/test do projeto. Isso acontece porque o robô está sendo executado como um teste automatizado, utilizando Java com Selenium dentro da estrutura padrão de projetos que seguem o modelo de testes (como JUnit ou TestNG).
 Em projetos Java organizados dessa forma, o diretório src é dividido em duas partes principais: src/main, que contém o código principal da aplicação, e src/test, que é destinado aos códigos de teste, automações e validações. Como o robô está sendo executado como um teste, ele se encaixa naturalmente dentro da pasta src/test/java.
 Essa organização é comum no mercado, principalmente para:
-•	Testes automatizados de sistemas
-•	Robôs de navegação com Selenium
-•	Scripts de automação e coleta de dados
-•	Testes de integração
-Ou seja, no estágio atual do projeto, o robô funciona como uma automação de teste, e por isso faz sentido estar dentro de src/test.
-O código só seria movido para src/main/java quando deixasse de ser um teste e passasse a funcionar como uma aplicação principal. Isso normalmente acontece quando o robô vira um programa executável, com classe principal (main), interface, menu ou integração com outros sistemas.
+
+- Testes automatizados de sistemas
+- Robôs de navegação com Selenium
+- Scripts de automação e coleta de dados
+- Testes de integração
+
+Ou seja, no estágio atual do projeto, o robô funciona como uma automação de teste, e por isso faz sentido estar dentro de src/test. O código só seria movido para src/main/java quando deixasse de ser um teste e passasse a funcionar como uma aplicação principal. Isso normalmente acontece quando o robô vira um programa executável, com classe principal (main), interface, menu ou integração com outros sistemas.
