@@ -43,16 +43,18 @@ Fluxo geral da automação
 6. Repete o processo para as próximas páginas.
 
 ## Estrutura das classes
-Classe principal: AutomacaoApplication
-- Responsável por:
+Classe principal: ```AutomacaoApplication```.
+
+Responsável por:
 
 1. Controlar o navegador
 2. Navegar pelas páginas
 3. Coletar os dados
 4. Salvar no CSV
 
-Classe utilitária: ElementUtil
-- Essa classe serve para facilitar a busca de elementos na página.
+Classe utilitária: ```ElementUtil```.
+
+Essa classe serve para facilitar a busca de elementos na página.
 
 1. Espera o elemento aparecer.
 2. Identifica o tipo de seletor:
@@ -87,8 +89,8 @@ Classe utilitária: ElementUtil
 
 ## Como executar
 1. Clonar o repositório: ``` git clone <url-do-repositorio> ```
-2. Entre na pasta do projeto: cd AutomacaoJavaWeb
-3. Executar a classe de testes no terminal: "mvn test" 
+2. Entre na pasta do projeto: ```cd AutomacaoJavaWeb```
+3. Executar a classe de testes no terminal: ```mvn test```
 
 ## Estrutura do projeto
 ```
@@ -146,4 +148,19 @@ Essa organização é comum no mercado, principalmente para:
 - Scripts de automação e coleta de dados
 - Testes de integração
 
-Ou seja, no estágio atual do projeto, o robô funciona como uma automação de teste, e por isso faz sentido estar dentro de src/test. O código só seria movido para src/main/java quando deixasse de ser um teste e passasse a funcionar como uma aplicação principal. Isso normalmente acontece quando o robô vira um programa executável, com classe principal (main), interface, menu ou integração com outros sistemas.
+Ou seja, no estágio atual do projeto, o robô funciona como uma automação de teste, e por isso faz sentido estar dentro de src/test. O código só seria movido para src/main/java quando deixasse de ser um teste e passasse a funcionar como uma aplicação principal. Isso normalmente acontece quando o robô vira um programa executável, com classe principal (main), interface, menu ou integração com outros 
+sistemas.
+
+## Pontos impotantes para iniciantes
+
+Escreva a explicação aqui ...
+![Captura desses dados](docs/imgs/Captura-desses-dados.png)
+
+Escreva a explicação aqui ...
+![solucao-1](docs/imgs/solucao-1.png)
+
+Escreva a explicação aqui ...
+![solucao-2](docs/imgs/solucao-2.png)
+
+Escreva a explicação aqui ...
+![solucao-3](docs/imgs/solucao-3.png)
