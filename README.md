@@ -153,14 +153,25 @@ sistemas.
 
 ## Pontos impotantes para iniciantes
 
-Escreva a explicação aqui ...
+Antes de iniciar o Web scraping você deve primeiro entender como estão organizadas as estruturas das informações que você precisa, no site as informações estão em blocos parecidos com este: 
 ![Captura desses dados](docs/imgs/Captura-desses-dados.png)
 
-Escreva a explicação aqui ...
+Mas pode haver alguns impecílios na hora de capturar alguns dados, como esse que eu vou falar agora em particular. Os dados estavam dentro de um ```<iframe>```, isso explicaria perfeitamente por que o Selenium não consegue encontrá-los no site principal "https://www.aosfatos.org/todas-as-declaracoes-de-bolsonaro/". O Selenium, por padrão, só enxerga os elementos do documento principal da página.
+Se o conteúdo estiver dentro de um iframe, ele é tratado como uma página separada dentro da página. O Selenium vai procurar apenas no DOM principal, ignorando o que está dentro do iframe. Mas, Como verificar se existe um iframe?
+Abra o site no navegador, clique com o botão direito no conteúdo e escolha Inspecionar. Se você vir algo assim: 
 ![solucao-1](docs/imgs/solucao-1.png)
+Então os dados estão dentro dele. No caso em questão, esse código confirma que todo o conteúdo das declarações está dentro de um ```<iframe>```, que é outra página.
 
-Escreva a explicação aqui ...
+Os dados podem vir de difícil acesso de leitura já que são salvos em arquivos csv, e dependendo da exportação, talvez não tão organizados. Nessa hora que o conhecimento em excel ajuda bastante, veja a forma que eu usei para trazer as informações de forma correta para o minha planilha no Excel.
 ![solucao-2](docs/imgs/solucao-2.png)
 
-Escreva a explicação aqui ...
+Antes de todas as informações que mencionei, você deve observar o sequinte: Qual o tipo de busca que queremos fazer no HTML?
+No Selenium, existem duas formas principais de localizar elementos: 
+- ```CSS Selector``` (Quando você conhece a estrutura exata)
+- ```XPath``` (Quando você quer buscar por texto ou condições).
+
+Então quer dizer que:
+O CSS não tem um jeito simples de pegar os 2 span que contém o texto interno "Tema" e "Origem". O XPath permite buscar pelo conteúdo textual exato, sela ele "Tema" e "Origem". o CSS é mais rápido e simples. XPath é mais poderoso e flexível. 
+
+Você Pode encontrar o XPath da seguinte forma: 
 ![solucao-3](docs/imgs/solucao-3.png)
