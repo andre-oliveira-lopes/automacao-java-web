@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -52,11 +52,20 @@ public class ColetarDeclaracoesTest {
     @DisplayName("Abrir pagina de declarações do Bolsonaro")
     public void abrirPaginaDeclaracoes() throws InterruptedException {
 
-        // Configura automaticamente o driver do Chrome
+        // Configura automaticamente o driver do Chrome usando o WebDriverManager
         WebDriverManager.chromedriver().setup();
 
-        // Abre o navegador
-        WebDriver navegador = new ChromeDriver();
+        // Configura o Chrome para rodar em modo headless (sem abrir a janela do navegador)
+        ChromeOptions options = new ChromeOptions();
+
+        // O modo "headless=new" é uma nova implementação que permitindo que o navegador rode em segundo plano.
+        options.addArguments("--headless=new");
+
+        // Abre o navegador (com options: ele roda em segundo plano)
+        WebDriver navegador = new ChromeDriver(options);
+
+        // Abre o navegador (sem options: ele abriria a janela do Chrome) 
+        // WebDriver navegador = new ChromeDriver();
 
         // Coloque o código de automação dentro de um bloco try-finally para garantir
         // que o navegador seja fechado mesmo se ocorrer um erro
